@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "5"
+script:
+  - npm test
+  - npm run coverage
+addons:
+  code_climate:
+    repo_token: dfa9ae225631fffd150d2e6508b67aad2db3826204f52479a7e97e0ba2f9d67c
