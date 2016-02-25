@@ -4,9 +4,9 @@
 [![npm version](https://badge.fury.io/js/inline-style-prefix-all.svg)](http://badge.fury.io/js/inline-style-prefix-all)
 [![npm downloads](https://img.shields.io/npm/dm/inline-style-prefix-all.svg)](https://img.shields.io/npm/dm/inline-style-prefix-all.svg)
 ![Dependencies](https://david-dm.org/rofrischmann/inline-style-prefix-all.svg)
-![Gzipped Size](https://img.shields.io/badge/gzipped-1.45kb-brightgreen.svg)
+![Gzipped Size](https://img.shields.io/badge/gzipped-3.3kb-brightgreen.svg)
 
-**inline-style-prefix-all** is a **tiny** *(1.45kb gzipped)* static javascript **Autoprefixer** for inline style objects. It uses data from [caniuse.com](http://caniuse.com/) to get all properties that require a prefix up to a given browser version.<br>
+**inline-style-prefix-all** is a **tiny** *(3.3kb gzipped)* static javascript **Autoprefixer** for inline style objects. It uses data from [caniuse.com](http://caniuse.com/) to get all properties that require a prefix up to a given browser version.<br>
 It was extracted from [inline-style-prefixer](https://github.com/rofrischmann/inline-style-prefixer). Check that repository for detailed information on which properties are supported, which special plugins are used and other stuff.
 > You could also use [inline-style-prefixer](https://github.com/rofrischmann/inline-style-prefixer) completely as it uses **prefix-all** as a fallback.
 
