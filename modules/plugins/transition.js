@@ -20,10 +20,11 @@ export default function transition(property, value) {
     multipleValues.forEach((val, index) => {
       const requiredPrefixes = Object.keys(prefixProps).reduce((out, prefix) => {
         if (prefixProps[prefix].has(dashToCamelCase(property))) {
-          out.unshift(prefix)
+          out.push(prefix)
         }
         return out
       }, [ ])
+      console.log(requiredPrefixes)
       // join all prefixes and create a new value
       multipleValues[index] = requiredPrefixes.map(prefix => val.replace(property, prefix + property)).join(',')
     })

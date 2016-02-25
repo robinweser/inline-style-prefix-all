@@ -32,4 +32,60 @@ describe('Resolving special plugins', () => {
     }
     expect(prefixAll(input)).to.eql(output)
   })
+
+  it('should resolve flexbox variants', () => {
+    const input = {
+      alignItems: 'center',
+      height: '100px',
+      width: '200px'
+    }
+    const output = {
+      WebkitAlignItems: 'center',
+      WebkitBoxAlign: 'center',
+      msAlignItems: 'center',
+      msFlexAlign: 'center',
+      alignItems: 'center',
+      height: '100px',
+      width: '200px'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
+  it('should add all flexbox display types', () => {
+    const input = { display: 'flex' }
+    const output = {
+      display: '-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex'
+    }
+    expect(prefixAll(input)).to.eql(output)
+
+  })
+
+  it('should add all inline flexbox display types', () => {
+    const input = { display: 'inline-flex' }
+    const output = {
+      display: '-webkit-box;display:-moz-box;display:-ms-inline-flexbox;display:-webkit-inline-flex;display:inline-flex'
+    }
+    expect(prefixAll(input)).to.eql(output)
+
+  })
+
+  it('should prefix special sizing values', () => {
+    const input = { width: 'min-content' }
+    const output = {
+      width: '-webkit-min-content;width:-moz-min-content;width:min-content'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
+  it('should prefix every property within transition values', () => {
+    const input = {
+      transition: '200ms linear appearance, 100ms linear width'
+    }
+    const output = {
+      WebkitTransition: '200ms linear -webkit-appearance,200ms linear -moz-appearance,200ms linear appearance, 100ms linear width',
+      transition: '200ms linear -webkit-appearance,200ms linear -moz-appearance,200ms linear appearance, 100ms linear width'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
 })
