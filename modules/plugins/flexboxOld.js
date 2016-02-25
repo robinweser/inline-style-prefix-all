@@ -17,29 +17,10 @@ const alternativeProps = {
 
 const otherProps = [ 'alignContent', 'alignSelf', 'order', 'flexGrow', 'flexShrink', 'flexBasis', 'flexDirection' ]
 
-const properties = Object.keys(alternativeProps).concat(otherProps).reduce((result, prop) => {
-  result[prop] = true
-  return result
-}, { })
+const properties = new Set(Object.keys(alternativeProps).concat(otherProps))
 
-export default function flexboxOld(pluginInterface) {
-  const { property, value, styles, browserInfo, prefix, keepUnprefixed, forceRun } = pluginInterface
-  const { browser, version } = browserInfo
-
-  if (
-    (properties[property] || property === 'display' && value.indexOf('flex') > -1) &&
-    (
-    forceRun ||
-    browser === 'firefox' && version < 22 ||
-    browser === 'chrome' && version < 21 ||
-    (browser === 'safari' || browser === 'ios_saf') && version <= 6.1 ||
-    browser === 'android' && version < 4.4 ||
-    browser === 'and_uc'
-    )
-  ) {
-    if (!keepUnprefixed) {
-      delete styles[property]
-    }
+export default function flexboxOld(property, value) {
+  if (properties.has(property) || property === 'display' && value.indexOf('flex') > -1) {
     if (property === 'flexDirection') {
       return {
         WebkitBoxOrient: value.indexOf('column') > -1 ? 'vertical' : 'horizontal',
@@ -48,7 +29,7 @@ export default function flexboxOld(pluginInterface) {
     }
     if (property === 'display' && alternativeValues[value]) {
       return {
-        display: prefix.css + alternativeValues[value] + (keepUnprefixed ? ';' + property + ':' + value : '')
+        display: [ '-webkit-' + alternativeValues[value], value ].join(';' + property + ':')
       }
     }
     if (alternativeProps[property]) {
@@ -58,7 +39,7 @@ export default function flexboxOld(pluginInterface) {
     }
     if (alternativeValues[value]) {
       return {
-        [property]: alternativeValues[value] + (keepUnprefixed ? ';' + property + ':' + value : '')
+        [property]: [ alternativeValues[value], value ].join(';' + property + ':')
       }
     }
   }

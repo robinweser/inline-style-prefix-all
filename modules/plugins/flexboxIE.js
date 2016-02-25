@@ -17,25 +17,10 @@ const alternativeProps = {
   flexBasis: 'msPreferredSize'
 }
 
-const properties = Object.keys(alternativeProps).reduce((result, prop) => {
-  result[prop] = true
-  return result
-}, { })
+const properties = new Set(Object.keys(alternativeProps))
 
-export default function flexboxIE(pluginInterface) {
-  const { property, value, styles, browserInfo, prefix, keepUnprefixed, forceRun } = pluginInterface
-  const { browser, version } = browserInfo
-
-  if (
-    (properties[property] || property === 'display' && value.indexOf('flex') > -1) &&
-    (
-    forceRun ||
-    (browser === 'ie_mob' || browser === 'ie') && version == 10)
-  ) {
-    if (!keepUnprefixed) {
-      delete styles[property]
-    }
-
+export default function flexboxIE(property, value) {
+  if (properties.has(property) || property === 'display' && value.indexOf('flex') > -1) {
     if (alternativeProps[property]) {
       return {
         [alternativeProps[property]]: alternativeValues[value] || value
@@ -43,7 +28,7 @@ export default function flexboxIE(pluginInterface) {
     }
     if (alternativeValues[value]) {
       return {
-        [property]: alternativeValues[value] + (keepUnprefixed ? ';' + property + ':' + value : '')
+        [property]: [ alternativeValues[value], value ].join(';' + property + ':')
       }
     }
   }

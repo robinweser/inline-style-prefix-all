@@ -24,3 +24,12 @@ describe('Prefixing all properties', () => {
   })
 })
 
+describe('Resolving special plugins', () => {
+  it('should prefix calc expressions', () => {
+    const input = { width: 'calc(30px)' }
+    const output = {
+      width: '-webkit-calc(30px);width:-moz-calc(30px);width:calc(30px)'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+})

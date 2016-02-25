@@ -1,6 +1,7 @@
 import prefixProperties from './prefixProps'
+import capitalizeString from './utils/capitalizeString'
+import assign from './utils/assign'
 
-/*
 import calc from './plugins/calc'
 import cursor from './plugins/cursor'
 import flex from './plugins/flex'
@@ -11,7 +12,7 @@ import transition from './plugins/transition'
 import flexboxIE from './plugins/flexboxIE'
 import flexboxOld from './plugins/flexboxOld'
 
-export default [
+const plugins = [
   calc,
   cursor,
   sizing,
@@ -19,13 +20,8 @@ export default [
   transition,
   flexboxIE,
   flexboxOld,
-  // this must be run AFTER the flexbox specs
   flex
-]*/
-
-
-// helper to capitalize strings
-const capitalizeString = str => str.charAt(0).toUpperCase() + str.slice(1)
+]
 
 /**
  * Returns a prefixed version of the style object using all vendor prefixes
@@ -46,6 +42,9 @@ export default function prefixAll(styles) {
           prefixedStyles[prefix + capitalizeString(property)] = value
         }
       })
+
+      // resolve every special plugins
+      plugins.forEach(plugin => assign(prefixedStyles, plugin(property, value)))
     }
 
     return prefixedStyles
