@@ -10,8 +10,8 @@
 It was extracted from [inline-style-prefixer](https://github.com/rofrischmann/inline-style-prefixer). Check that repository for detailed information on which properties are supported, which special plugins are used and other stuff.
 > You could also use [inline-style-prefixer](https://github.com/rofrischmann/inline-style-prefixer) completely as it uses **prefix-all** as a fallback.
 
-# Browser Support
-Supports the major browsers with the following versions. <br>For legacy support check [custom build](custom-build--legacy-support).
+# Browser Scope
+It will **only** add prefixes if a property still needs them in one of the following browser versions. This means *e.g. `border-radius`* will not be prefixed at all.<br>For legacy support check [custom build](custom-build--legacy-support).
 * Chrome: 30+
 * Safari: 6+
 * Firefox: 25+
