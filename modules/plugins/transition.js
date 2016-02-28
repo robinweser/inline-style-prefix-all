@@ -24,7 +24,6 @@ export default function transition(property, value) {
         }
         return out
       }, [ ])
-      console.log(requiredPrefixes)
       // join all prefixes and create a new value
       multipleValues[index] = requiredPrefixes.map(prefix => val.replace(property, prefix + property)).join(',')
     })

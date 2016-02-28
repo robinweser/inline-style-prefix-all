@@ -26,10 +26,5 @@ export default function flexboxIE(property, value) {
         [alternativeProps[property]]: alternativeValues[value] || value
       }
     }
-    if (alternativeValues[value]) {
-      return {
-        [property]: [ alternativeValues[value], value ].join(';' + property + ':')
-      }
-    }
   }
 }

@@ -22,6 +22,24 @@ describe('Prefixing all properties', () => {
     }
     expect(prefixAll(input)).to.eql(output)
   })
+
+  it('should also resolve nested objects', () => {
+    const input = {
+      transition: '200ms all linear',
+      innerStyles: {
+        transition: '300ms all ease-in'
+      }
+    }
+    const output = {
+      WebkitTransition: '200ms all linear',
+      transition: '200ms all linear',
+      innerStyles: {
+        WebkitTransition: '300ms all ease-in',
+        transition: '300ms all ease-in'
+      }
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
 })
 
 describe('Resolving special plugins', () => {
@@ -29,6 +47,38 @@ describe('Resolving special plugins', () => {
     const input = { width: 'calc(30px)' }
     const output = {
       width: '-webkit-calc(30px);width:-moz-calc(30px);width:calc(30px)'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
+  it('should prefix special cursor values', () => {
+    const input = { cursor: 'zoom-in' }
+    const output = {
+      cursor: '-webkit-zoom-in;cursor:-moz-zoom-in;cursor:zoom-in'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
+  it('should resolve flex-direction for all flexbox specification', () => {
+    const input = { flexDirection: 'column-reverse' }
+    const output = {
+      WebkitBoxOrient: 'vertical',
+      WebkitBoxDirection: 'reverse',
+      WebkitFlexDirection: 'column-reverse',
+      msFlexDirection: 'column-reverse',
+      flexDirection: 'column-reverse'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
+  it('should resolve alternative values for all flexbox specification', () => {
+    const input = { justifyContent: 'space-around' }
+    const output = {
+      WebkitBoxPack: 'justify',
+      WebkitJustifyContent: 'space-around',
+      msJustifyContent: 'space-around',
+      justifyContent: 'space-around',
+      msFlexPack: 'distribute'
     }
     expect(prefixAll(input)).to.eql(output)
   })
@@ -51,13 +101,22 @@ describe('Resolving special plugins', () => {
     expect(prefixAll(input)).to.eql(output)
   })
 
+  it('should prefix gradients', () => {
+    const input = {
+      background: 'linear-gradient(to bottom right, red, yellow)'
+    }
+    const output = {
+      background: '-webkit-linear-gradient(to bottom right, red, yellow);background:-moz-linear-gradient(to bottom right, red, yellow);background:linear-gradient(to bottom right, red, yellow)'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
   it('should add all flexbox display types', () => {
     const input = { display: 'flex' }
     const output = {
       display: '-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex'
     }
     expect(prefixAll(input)).to.eql(output)
-
   })
 
   it('should add all inline flexbox display types', () => {
@@ -87,5 +146,4 @@ describe('Resolving special plugins', () => {
     }
     expect(prefixAll(input)).to.eql(output)
   })
-
 })

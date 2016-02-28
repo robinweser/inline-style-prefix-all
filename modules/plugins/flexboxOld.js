@@ -37,10 +37,5 @@ export default function flexboxOld(property, value) {
         [alternativeProps[property]]: alternativeValues[value] || value
       }
     }
-    if (alternativeValues[value]) {
-      return {
-        [property]: [ alternativeValues[value], value ].join(';' + property + ':')
-      }
-    }
   }
 }
