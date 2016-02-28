@@ -141,8 +141,8 @@ describe('Resolving special plugins', () => {
       transition: '200ms linear appearance, 100ms linear width'
     }
     const output = {
-      WebkitTransition: '200ms linear -webkit-appearance,200ms linear -moz-appearance,200ms linear appearance, 100ms linear width',
-      transition: '200ms linear -webkit-appearance,200ms linear -moz-appearance,200ms linear appearance, 100ms linear width'
+      WebkitTransition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance, 100ms linear width',
+      transition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance, 100ms linear width'
     }
     expect(prefixAll(input)).to.eql(output)
   })

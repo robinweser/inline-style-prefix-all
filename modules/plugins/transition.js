@@ -1,5 +1,4 @@
 import camelToDashCase from '../utils/camelToDashCase'
-import dashToCamelCase from '../utils/dashToCamelCase'
 import capitalizeString from '../utils/capitalizeString'
 import unprefixProperty from '../utils/unprefixProperty'
 import prefixProps from '../prefixProps'
@@ -18,14 +17,18 @@ export default function transition(property, value) {
     // iterate each single value and check for transitioned properties
     // that need to be prefixed as well
     multipleValues.forEach((val, index) => {
-      const requiredPrefixes = Object.keys(prefixProps).reduce((out, prefix) => {
-        if (prefixProps[prefix].has(dashToCamelCase(property))) {
-          out.push(prefix)
-        }
+      multipleValues[index] = Object.keys(prefixProps).reduce((out, prefix) => {
+        const dashCasePrefix = '-' + prefix.toLowerCase() + '-'
+
+        Array.from(prefixProps[prefix]).forEach(prop => {
+          const dashCaseProperty = camelToDashCase(prop)
+          if (val.indexOf(dashCaseProperty) > -1) {
+            // join all prefixes and create a new value
+            out = val.replace(dashCaseProperty, dashCasePrefix + dashCaseProperty) + ',' + out
+          }
+        })
         return out
-      }, [ ])
-      // join all prefixes and create a new value
-      multipleValues[index] = requiredPrefixes.map(prefix => val.replace(property, prefix + property)).join(',')
+      }, val)
     })
 
     const outputValue = multipleValues.join(',')
