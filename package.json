@@ -1,6 +1,6 @@
 {
   "name": "inline-style-prefix-all",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Static Autoprefixer for inline styles",
   "main": "lib/prefixAll.js",
   "files": [

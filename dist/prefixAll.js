@@ -6,24 +6,37 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports['default'] = calc;
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+
+var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
 function calc(property, value) {
   if (typeof value === 'string' && value.indexOf('calc(') > -1) {
     return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
       return value.replace(/calc\(/g, prefix + 'calc(');
-    }).join(';' + property + ':'));
+    }).join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':'));
   }
 }
 
 module.exports = exports['default'];
-},{}],2:[function(require,module,exports){
+},{"../utils/camelToDashCase":12}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 exports['default'] = cursor;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+
+var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+
 var values = new Set(['zoom-in', 'zoom-out', 'grab', 'grabbing']);
 
 function cursor(property, value) {
@@ -31,31 +44,38 @@ function cursor(property, value) {
     return {
       cursor: ['-webkit-', '-moz-', ''].map(function (prefix) {
         return prefix + value;
-      }).join(';' + property + ':')
+      }).join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
     };
   }
 }
 
 module.exports = exports['default'];
-},{}],3:[function(require,module,exports){
+},{"../utils/camelToDashCase":12}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 exports['default'] = flex;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+
+var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+
 var values = new Set(['flex', 'inline-flex']);
 
 function flex(property, value) {
   if (property === 'display' && values.has(value)) {
     return {
-      display: ['-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value].join(';' + property + ':')
+      display: ['-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value].join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
     };
   }
 }
 
 module.exports = exports['default'];
-},{}],4:[function(require,module,exports){
+},{"../utils/camelToDashCase":12}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -103,7 +123,13 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports['default'] = flexboxOld;
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+
+var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
 var alternativeValues = {
   'space-around': 'justify',
@@ -136,7 +162,7 @@ function flexboxOld(property, value) {
     }
     if (property === 'display' && alternativeValues[value]) {
       return {
-        display: ['-webkit-' + alternativeValues[value], value].join(';' + property + ':')
+        display: ['-webkit-' + alternativeValues[value], value].join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
       };
     }
     if (alternativeProps[property]) {
@@ -146,7 +172,7 @@ function flexboxOld(property, value) {
 }
 
 module.exports = exports['default'];
-},{}],6:[function(require,module,exports){
+},{"../utils/camelToDashCase":12}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -154,7 +180,13 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports['default'] = gradient;
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+
+var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
 var values = /linear-gradient|radial-gradient|repeating-linear-gradient|repeating-radial-gradient/;
 
@@ -162,12 +194,12 @@ function gradient(property, value) {
   if (typeof value === 'string' && value.match(values) !== null) {
     return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
       return prefix + value;
-    }).join(';' + property + ':'));
+    }).join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':'));
   }
 }
 
 module.exports = exports['default'];
-},{}],7:[function(require,module,exports){
+},{"../utils/camelToDashCase":12}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -175,7 +207,13 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports['default'] = sizing;
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+
+var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
 var properties = new Set(['maxHeight', 'maxWidth', 'width', 'height', 'columnWidth', 'minWidth', 'minHeight']);
 var values = new Set(['min-content', 'max-content', 'fill-available', 'fit-content', 'contain-floats']);
@@ -186,12 +224,12 @@ function sizing(property, value) {
   if (properties.has(property) && values.has(value)) {
     return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
       return prefix + value;
-    }).join(';' + property + ':'));
+    }).join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':'));
   }
 }
 
 module.exports = exports['default'];
-},{}],8:[function(require,module,exports){
+},{"../utils/camelToDashCase":12}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -252,7 +290,9 @@ function transition(property, value) {
 
       var outputValue = multipleValues.join(',');
       return {
-        v: (_ref = {}, _defineProperty(_ref, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), outputValue), _defineProperty(_ref, property, outputValue), _ref)
+        v: (_ref = {}, _defineProperty(_ref, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), outputValue.split(',').filter(function (value) {
+          return value.match(/-moz-|-ms-/) === null;
+        }).join(',')), _defineProperty(_ref, property, outputValue), _ref)
       };
     })();
 
