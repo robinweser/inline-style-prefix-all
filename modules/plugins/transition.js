@@ -31,7 +31,6 @@ export default function transition(property, value) {
 
     const outputValue = multipleValues.join(',')
     return {
-
       ['Webkit' + capitalizeString(property)]: outputValue.split(',').filter(value => value.match(/-moz-|-ms-/) === null).join(','),
       [property]: outputValue
     }
