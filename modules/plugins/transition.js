@@ -9,10 +9,8 @@ export default function transition(property, value) {
   // also check for already prefixed transitions
   const unprefixedProperty = unprefixProperty(property)
   if (typeof value === 'string' && properties.has(unprefixedProperty)) {
-    let newValue = value
-
     // only split multi values, not cubic beziers
-    const multipleValues = newValue.split(/,(?![^()]*(?:\([^()]*\))?\))/g)
+    const multipleValues = value.split(/,(?![^()]*(?:\([^()]*\))?\))/g)
 
     // iterate each single value and check for transitioned properties
     // that need to be prefixed as well
