@@ -29,7 +29,7 @@ For legacy support check [custom build](custom-build--legacy-support).
 
 # Usage
 ```bash
-npm install inline-style-prefix-all --save-dev
+npm install inline-style-prefix-all --save
 ```
 ```javascript
 import prefixAll from 'inline-style-prefix-all'
