@@ -1,3 +1,5 @@
+import camelToDashCase from '../utils/camelToDashCase'
+
 const alternativeValues = {
   'space-around': 'justify',
   'space-between': 'justify',
@@ -29,7 +31,7 @@ export default function flexboxOld(property, value) {
     }
     if (property === 'display' && alternativeValues[value]) {
       return {
-        display: [ '-webkit-' + alternativeValues[value], value ].join(';' + property + ':')
+        display: [ '-webkit-' + alternativeValues[value], value ].join(';' + camelToDashCase(property) + ':')
       }
     }
     if (alternativeProps[property]) {
