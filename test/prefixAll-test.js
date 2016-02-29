@@ -23,6 +23,14 @@ describe('Prefixing all properties', () => {
     expect(prefixAll(input)).to.eql(output)
   })
 
+  it('should use dash-cased alternative properties', () => {
+    const input = { marginLeft: 'calc(30deg)' }
+    const output = {
+      marginLeft: '-webkit-calc(30deg);margin-left:-moz-calc(30deg);margin-left:calc(30deg)'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
   it('should also resolve nested objects', () => {
     const input = {
       transition: '200ms all linear',
@@ -141,7 +149,7 @@ describe('Resolving special plugins', () => {
       transition: '200ms linear appearance, 100ms linear width'
     }
     const output = {
-      WebkitTransition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance, 100ms linear width',
+      WebkitTransition: '200ms linear -webkit-appearance,200ms linear appearance, 100ms linear width',
       transition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance, 100ms linear width'
     }
     expect(prefixAll(input)).to.eql(output)
