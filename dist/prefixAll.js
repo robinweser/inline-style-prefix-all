@@ -8,22 +8,20 @@ exports['default'] = calc;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _utilsJoinPrefixedRules = require('../utils/joinPrefixedRules');
 
-var _utilsCamelToDashCase = require('../utils/camelToDashCase');
-
-var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
 function calc(property, value) {
   if (typeof value === 'string' && value.indexOf('calc(') > -1) {
-    return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
+    return (0, _utilsJoinPrefixedRules2['default'])(property, value, function (prefix, value) {
       return value.replace(/calc\(/g, prefix + 'calc(');
-    }).join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':'));
+    });
   }
 }
 
 module.exports = exports['default'];
-},{"../utils/camelToDashCase":12}],2:[function(require,module,exports){
+},{"../utils/joinPrefixedRules":14}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -33,24 +31,20 @@ exports['default'] = cursor;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+var _utilsJoinPrefixedRules = require('../utils/joinPrefixedRules');
 
-var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
 var values = new Set(['zoom-in', 'zoom-out', 'grab', 'grabbing']);
 
 function cursor(property, value) {
   if (property === 'cursor' && values.has(value)) {
-    return {
-      cursor: ['-webkit-', '-moz-', ''].map(function (prefix) {
-        return prefix + value;
-      }).join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
-    };
+    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
   }
 }
 
 module.exports = exports['default'];
-},{"../utils/camelToDashCase":12}],3:[function(require,module,exports){
+},{"../utils/joinPrefixedRules":14}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -89,9 +83,7 @@ var alternativeValues = {
   'space-around': 'distribute',
   'space-between': 'justify',
   'flex-start': 'start',
-  'flex-end': 'end',
-  flex: '-ms-flexbox',
-  'inline-flex': '-ms-inline-flexbox'
+  'flex-end': 'end'
 };
 var alternativeProps = {
   alignContent: 'msFlexLinePack',
@@ -104,13 +96,9 @@ var alternativeProps = {
   flexBasis: 'msPreferredSize'
 };
 
-var properties = new Set(Object.keys(alternativeProps));
-
 function flexboxIE(property, value) {
-  if (properties.has(property) || property === 'display' && value.indexOf('flex') > -1) {
-    if (alternativeProps[property]) {
-      return _defineProperty({}, alternativeProps[property], alternativeValues[value] || value);
-    }
+  if (alternativeProps[property]) {
+    return _defineProperty({}, alternativeProps[property], alternativeValues[value] || value);
   }
 }
 
@@ -137,37 +125,26 @@ var alternativeValues = {
   'flex-start': 'start',
   'flex-end': 'end',
   'wrap-reverse': 'multiple',
-  wrap: 'multiple',
-  flex: 'box',
-  'inline-flex': 'inline-box'
+  wrap: 'multiple'
 };
 
 var alternativeProps = {
   alignItems: 'WebkitBoxAlign',
   justifyContent: 'WebkitBoxPack',
-  flexWrap: 'WebkitBoxLines'
+  flexWrap: 'WebkitBoxLines',
+  alignContent: 'alignContent',
+  alignSelf: 'alignSelf'
 };
 
-var otherProps = ['alignContent', 'alignSelf', 'order', 'flexGrow', 'flexShrink', 'flexBasis', 'flexDirection'];
-
-var properties = new Set(Object.keys(alternativeProps).concat(otherProps));
-
 function flexboxOld(property, value) {
-  if (properties.has(property) || property === 'display' && value.indexOf('flex') > -1) {
-    if (property === 'flexDirection') {
-      return {
-        WebkitBoxOrient: value.indexOf('column') > -1 ? 'vertical' : 'horizontal',
-        WebkitBoxDirection: value.indexOf('reverse') > -1 ? 'reverse' : 'normal'
-      };
-    }
-    if (property === 'display' && alternativeValues[value]) {
-      return {
-        display: ['-webkit-' + alternativeValues[value], value].join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
-      };
-    }
-    if (alternativeProps[property]) {
-      return _defineProperty({}, alternativeProps[property], alternativeValues[value] || value);
-    }
+  if (property === 'flexDirection') {
+    return {
+      WebkitBoxOrient: value.indexOf('column') > -1 ? 'vertical' : 'horizontal',
+      WebkitBoxDirection: value.indexOf('reverse') > -1 ? 'reverse' : 'normal'
+    };
+  }
+  if (alternativeProps[property]) {
+    return _defineProperty({}, alternativeProps[property], alternativeValues[value] || value);
   }
 }
 
@@ -182,24 +159,20 @@ exports['default'] = gradient;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _utilsJoinPrefixedRules = require('../utils/joinPrefixedRules');
 
-var _utilsCamelToDashCase = require('../utils/camelToDashCase');
-
-var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
 var values = /linear-gradient|radial-gradient|repeating-linear-gradient|repeating-radial-gradient/;
 
 function gradient(property, value) {
   if (typeof value === 'string' && value.match(values) !== null) {
-    return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
-      return prefix + value;
-    }).join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':'));
+    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
   }
 }
 
 module.exports = exports['default'];
-},{"../utils/camelToDashCase":12}],7:[function(require,module,exports){
+},{"../utils/joinPrefixedRules":14}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -209,27 +182,21 @@ exports['default'] = sizing;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _utilsJoinPrefixedRules = require('../utils/joinPrefixedRules');
 
-var _utilsCamelToDashCase = require('../utils/camelToDashCase');
-
-var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
 var properties = new Set(['maxHeight', 'maxWidth', 'width', 'height', 'columnWidth', 'minWidth', 'minHeight']);
 var values = new Set(['min-content', 'max-content', 'fill-available', 'fit-content', 'contain-floats']);
 
 function sizing(property, value) {
-  // This might change in the future
-  // Keep an eye on it
   if (properties.has(property) && values.has(value)) {
-    return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
-      return prefix + value;
-    }).join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':'));
+    return (0, _utilsJoinPrefixedRules2['default'])(property, value);
   }
 }
 
 module.exports = exports['default'];
-},{"../utils/camelToDashCase":12}],8:[function(require,module,exports){
+},{"../utils/joinPrefixedRules":14}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -301,7 +268,7 @@ function transition(property, value) {
 }
 
 module.exports = exports['default'];
-},{"../prefixProps":10,"../utils/camelToDashCase":12,"../utils/capitalizeString":13,"../utils/unprefixProperty":14}],9:[function(require,module,exports){
+},{"../prefixProps":10,"../utils/camelToDashCase":12,"../utils/capitalizeString":13,"../utils/unprefixProperty":15}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -448,6 +415,35 @@ exports["default"] = function (str) {
 
 module.exports = exports["default"];
 },{}],14:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _camelToDashCase = require('./camelToDashCase');
+
+var _camelToDashCase2 = _interopRequireDefault(_camelToDashCase);
+
+// returns a style object with a single concated prefixed value string
+
+exports['default'] = function (property, value) {
+  var replacer = arguments.length <= 2 || arguments[2] === undefined ? function (prefix, value) {
+    return prefix + value;
+  } : arguments[2];
+  return (function () {
+    return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
+      return replacer(prefix, value);
+    }).join(';' + (0, _camelToDashCase2['default'])(property) + ':'));
+  })();
+};
+
+module.exports = exports['default'];
+},{"./camelToDashCase":12}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

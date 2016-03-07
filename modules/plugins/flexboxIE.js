@@ -2,9 +2,7 @@ const alternativeValues = {
   'space-around': 'distribute',
   'space-between': 'justify',
   'flex-start': 'start',
-  'flex-end': 'end',
-  flex: '-ms-flexbox',
-  'inline-flex': '-ms-inline-flexbox'
+  'flex-end': 'end'
 }
 const alternativeProps = {
   alignContent: 'msFlexLinePack',
@@ -17,14 +15,10 @@ const alternativeProps = {
   flexBasis: 'msPreferredSize'
 }
 
-const properties = new Set(Object.keys(alternativeProps))
-
 export default function flexboxIE(property, value) {
-  if (properties.has(property) || property === 'display' && value.indexOf('flex') > -1) {
-    if (alternativeProps[property]) {
-      return {
-        [alternativeProps[property]]: alternativeValues[value] || value
-      }
+  if (alternativeProps[property]) {
+    return {
+      [alternativeProps[property]]: alternativeValues[value] || value
     }
   }
 }
