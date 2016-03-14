@@ -12,9 +12,7 @@ const alternativeValues = {
 const alternativeProps = {
   alignItems: 'WebkitBoxAlign',
   justifyContent: 'WebkitBoxPack',
-  flexWrap: 'WebkitBoxLines',
-  alignContent: 'alignContent',
-  alignSelf: 'alignSelf'
+  flexWrap: 'WebkitBoxLines'
 }
 
 export default function flexboxOld(property, value) {
