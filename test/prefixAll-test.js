@@ -84,7 +84,6 @@ describe('Resolving special plugins', () => {
     const output = {
       WebkitBoxPack: 'justify',
       WebkitJustifyContent: 'space-around',
-      msJustifyContent: 'space-around',
       justifyContent: 'space-around',
       msFlexPack: 'distribute'
     }
@@ -100,11 +99,20 @@ describe('Resolving special plugins', () => {
     const output = {
       WebkitAlignItems: 'center',
       WebkitBoxAlign: 'center',
-      msAlignItems: 'center',
       msFlexAlign: 'center',
       alignItems: 'center',
       height: '100px',
       width: '200px'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
+  it('should not resolve alternative values on alignSelf', () => {
+    const input = { alignSelf: 'flex-start' }
+    const output = {
+      msFlexItemAlign: 'start',
+      WebkitAlignSelf: 'flex-start',
+      alignSelf: 'flex-start'
     }
     expect(prefixAll(input)).to.eql(output)
   })
