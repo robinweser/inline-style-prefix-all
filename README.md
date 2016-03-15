@@ -13,7 +13,7 @@ It was extracted from [inline-style-prefixer](https://github.com/rofrischmann/in
 # Browser Scope
 It will **only** add prefixes if a property still needs them in one of the following browser versions.<br>
 This means *e.g. `border-radius`* will not be prefixed at all.<br>
-For legacy support check [custom build](custom-build--legacy-support).
+For legacy support check [custom build](#custom-build--legacy-support).
 * Chrome: 30+
 * Safari: 6+
 * Firefox: 25+

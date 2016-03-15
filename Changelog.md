@@ -1,6 +1,10 @@
 # Changelog
 
 ## 1.0
+### 1.0.3
+* prevent `alignSelf` and `alignContent` from rendering alternative values
+* removed some unnecessary flexbox properties from `ms` prefixes
+
 ### 1.0.2
 * simplified plugins by a lot
 * removed unnecessary checks and replacements
