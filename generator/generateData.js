@@ -27,22 +27,22 @@ const prefixProperties = Object.keys(prefixBrowsers).reduce((out, browser) => {
 
     properties.forEach(prop => {
       if (versions[browser].x >= config[browser]) {
-        out[prefix].add(prop)
+        out[prefix][prop] = true;
       }
     })
   })
 
   return out
-}, { Webkit: new Set(), Moz: new Set(), ms: new Set() })
+}, { Webkit: {}, Moz: {}, ms: {} })
 
 // remove flexprops from IE
 const flexPropsIE = [ 'alignContent', 'alignSelf', 'alignItems', 'justifyContent', 'order', 'flexGrow', 'flexShrink', 'flexBasis' ]
 
 flexPropsIE.forEach(prop => {
-  prefixProperties.ms.delete(prop)
+  prefixProperties.ms[prop] = false
 })
 
-const file = 'export default ' + JSON.stringify(prefixProperties).replace(new RegExp(/\[/, 'g'), 'new Set([').replace(new RegExp(/\]/, 'g'), '])');
+const file = 'export default ' + JSON.stringify(prefixProperties).replace(new RegExp(/\[/, 'g'), '{').replace(new RegExp(/\]/, 'g'), '}');
 
 fs.writeFile('./modules/prefixProps.js', file, err => {
   if (err) {

@@ -1,8 +1,14 @@
 import joinPrefixedRules from '../utils/joinPrefixedRules'
-const values = new Set([ 'zoom-in', 'zoom-out', 'grab', 'grabbing' ])
+
+const values = {
+  'zoom-in': true,
+  'zoom-out': true,
+  'grab': true,
+  'grabbing': true
+}
 
 export default function cursor(property, value) {
-  if (property === 'cursor' && values.has(value)) {
+  if (property === 'cursor' && values[value]) {
     return joinPrefixedRules(property, value)
   }
 }

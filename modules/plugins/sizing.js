@@ -1,9 +1,24 @@
 import joinPrefixedRules from '../utils/joinPrefixedRules'
-const properties = new Set([ 'maxHeight', 'maxWidth', 'width', 'height', 'columnWidth', 'minWidth', 'minHeight' ])
-const values = new Set([ 'min-content', 'max-content', 'fill-available', 'fit-content', 'contain-floats' ])
+
+const properties = {
+  maxHeight: true,
+  maxWidth: true,
+  width: true,
+  height: true,
+  columnWidth: true,
+  minWidth: true,
+  minHeight: true
+}
+const values = {
+  'min-content': true,
+  'max-content': true,
+  'fill-available': true,
+  'fit-content': true,
+  'contain-floats': true
+}
 
 export default function sizing(property, value) {
-  if (properties.has(property) && values.has(value)) {
+  if (properties[property] && values[value]) {
     return joinPrefixedRules(property, value)
   }
 }
