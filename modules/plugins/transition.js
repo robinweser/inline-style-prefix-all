@@ -3,12 +3,15 @@ import capitalizeString from '../utils/capitalizeString'
 import unprefixProperty from '../utils/unprefixProperty'
 import prefixProps from '../prefixProps'
 
-const properties = new Set([ 'transition', 'transitionProperty' ])
+const properties = {
+  'transition': true,
+  'transitionProperty': true
+}
 
 export default function transition(property, value) {
   // also check for already prefixed transitions
   const unprefixedProperty = unprefixProperty(property)
-  if (typeof value === 'string' && properties.has(unprefixedProperty)) {
+  if (typeof value === 'string' && properties[unprefixedProperty]) {
     // only split multi values, not cubic beziers
     const multipleValues = value.split(/,(?![^()]*(?:\([^()]*\))?\))/g)
 
@@ -18,7 +21,7 @@ export default function transition(property, value) {
       multipleValues[index] = Object.keys(prefixProps).reduce((out, prefix) => {
         const dashCasePrefix = '-' + prefix.toLowerCase() + '-'
 
-        Array.from(prefixProps[prefix]).forEach(prop => {
+        Object.keys(prefixProps[prefix]).forEach(prop => {
           const dashCaseProperty = camelToDashCase(prop)
           if (val.indexOf(dashCaseProperty) > -1) {
             // join all prefixes and create a new value

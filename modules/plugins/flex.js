@@ -1,8 +1,12 @@
 import camelToDashCase from '../utils/camelToDashCase'
-const values = new Set([ 'flex', 'inline-flex' ])
+
+const values = {
+  'flex': true,
+  'inline-flex': true
+}
 
 export default function flex(property, value) {
-  if (property === 'display' && values.has(value)) {
+  if (property === 'display' && values[value]) {
     return {
       display: [ '-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value ].join(';' + camelToDashCase(property) + ':')
     }
