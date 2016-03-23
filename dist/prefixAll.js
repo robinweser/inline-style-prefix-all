@@ -35,10 +35,15 @@ var _utilsJoinPrefixedRules = require('../utils/joinPrefixedRules');
 
 var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
-var values = new Set(['zoom-in', 'zoom-out', 'grab', 'grabbing']);
+var values = {
+  'zoom-in': true,
+  'zoom-out': true,
+  'grab': true,
+  'grabbing': true
+};
 
 function cursor(property, value) {
-  if (property === 'cursor' && values.has(value)) {
+  if (property === 'cursor' && values[value]) {
     return (0, _utilsJoinPrefixedRules2['default'])(property, value);
   }
 }
@@ -58,10 +63,13 @@ var _utilsCamelToDashCase = require('../utils/camelToDashCase');
 
 var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
 
-var values = new Set(['flex', 'inline-flex']);
+var values = {
+  'flex': true,
+  'inline-flex': true
+};
 
 function flex(property, value) {
-  if (property === 'display' && values.has(value)) {
+  if (property === 'display' && values[value]) {
     return {
       display: ['-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value].join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
     };
@@ -184,11 +192,25 @@ var _utilsJoinPrefixedRules = require('../utils/joinPrefixedRules');
 
 var _utilsJoinPrefixedRules2 = _interopRequireDefault(_utilsJoinPrefixedRules);
 
-var properties = new Set(['maxHeight', 'maxWidth', 'width', 'height', 'columnWidth', 'minWidth', 'minHeight']);
-var values = new Set(['min-content', 'max-content', 'fill-available', 'fit-content', 'contain-floats']);
+var properties = {
+  maxHeight: true,
+  maxWidth: true,
+  width: true,
+  height: true,
+  columnWidth: true,
+  minWidth: true,
+  minHeight: true
+};
+var values = {
+  'min-content': true,
+  'max-content': true,
+  'fill-available': true,
+  'fit-content': true,
+  'contain-floats': true
+};
 
 function sizing(property, value) {
-  if (properties.has(property) && values.has(value)) {
+  if (properties[property] && values[value]) {
     return (0, _utilsJoinPrefixedRules2['default'])(property, value);
   }
 }
@@ -222,12 +244,15 @@ var _prefixProps = require('../prefixProps');
 
 var _prefixProps2 = _interopRequireDefault(_prefixProps);
 
-var properties = new Set(['transition', 'transitionProperty']);
+var properties = {
+  'transition': true,
+  'transitionProperty': true
+};
 
 function transition(property, value) {
   // also check for already prefixed transitions
   var unprefixedProperty = (0, _utilsUnprefixProperty2['default'])(property);
-  if (typeof value === 'string' && properties.has(unprefixedProperty)) {
+  if (typeof value === 'string' && properties[unprefixedProperty]) {
     var _ref;
 
     var _ret = (function () {
@@ -240,7 +265,7 @@ function transition(property, value) {
         multipleValues[index] = Object.keys(_prefixProps2['default']).reduce(function (out, prefix) {
           var dashCasePrefix = '-' + prefix.toLowerCase() + '-';
 
-          Array.from(_prefixProps2['default'][prefix]).forEach(function (prop) {
+          Object.keys(_prefixProps2['default'][prefix]).forEach(function (prop) {
             var dashCaseProperty = (0, _utilsCamelToDashCase2['default'])(prop);
             if (val.indexOf(dashCaseProperty) > -1) {
               // join all prefixes and create a new value
@@ -337,8 +362,9 @@ function prefixAll(styles) {
     } else {
       Object.keys(_prefixProps2['default']).forEach(function (prefix) {
         var properties = _prefixProps2['default'][prefix];
+
         // add prefixes if needed
-        if (properties.has(property)) {
+        if (properties[property]) {
           prefixedStyles[prefix + (0, _utilsCapitalizeString2['default'])(property)] = value;
         }
       });
@@ -360,7 +386,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = { "Webkit": new Set(["transform", "transformOrigin", "transformOriginX", "transformOriginY", "backfaceVisibility", "perspective", "perspectiveOrigin", "transformStyle", "transformOriginZ", "animation", "animationDelay", "animationDirection", "animationFillMode", "animationDuration", "animationIterationCount", "animationName", "animationPlayState", "animationTimingFunction", "appearance", "userSelect", "fontKerning", "textEmphasisPosition", "textEmphasis", "textEmphasisStyle", "textEmphasisColor", "boxDecorationBreak", "clipPath", "maskImage", "maskMode", "maskRepeat", "maskPosition", "maskClip", "maskOrigin", "maskSize", "maskComposite", "mask", "maskBorderSource", "maskBorderMode", "maskBorderSlice", "maskBorderWidth", "maskBorderOutset", "maskBorderRepeat", "maskBorder", "maskType", "textDecorationStyle", "textDecorationSkip", "textDecorationLine", "textDecorationColor", "filter", "fontFeatureSettings", "breakAfter", "breakBefore", "breakInside", "columnCount", "columnFill", "columnGap", "columnRule", "columnRuleColor", "columnRuleStyle", "columnRuleWidth", "columns", "columnSpan", "columnWidth", "flex", "flexBasis", "flexDirection", "flexGrow", "flexFlow", "flexShrink", "flexWrap", "alignContent", "alignItems", "alignSelf", "justifyContent", "order", "transition", "transitionDelay", "transitionDuration", "transitionProperty", "transitionTimingFunction", "backdropFilter", "scrollSnapType", "scrollSnapPointsX", "scrollSnapPointsY", "scrollSnapDestination", "scrollSnapCoordinate", "shapeImageThreshold", "shapeImageMargin", "shapeImageOutside", "hyphens", "flowInto", "flowFrom", "regionFragment", "textSizeAdjust", "borderImage", "borderImageOutset", "borderImageRepeat", "borderImageSlice", "borderImageSource", "borderImageWidth", "tabSize", "objectFit", "objectPosition"]), "Moz": new Set(["appearance", "userSelect", "boxSizing", "textAlignLast", "textDecorationStyle", "textDecorationSkip", "textDecorationLine", "textDecorationColor", "tabSize", "hyphens", "fontFeatureSettings", "breakAfter", "breakBefore", "breakInside", "columnCount", "columnFill", "columnGap", "columnRule", "columnRuleColor", "columnRuleStyle", "columnRuleWidth", "columns", "columnSpan", "columnWidth"]), "ms": new Set(["flex", "flexDirection", "flexFlow", "flexWrap", "transform", "transformOrigin", "transformOriginX", "transformOriginY", "userSelect", "wrapFlow", "wrapThrough", "wrapMargin", "scrollSnapType", "scrollSnapPointsX", "scrollSnapPointsY", "scrollSnapDestination", "scrollSnapCoordinate", "touchAction", "hyphens", "flowInto", "flowFrom", "breakBefore", "breakAfter", "breakInside", "regionFragment", "gridTemplateColumns", "gridTemplateRows", "gridTemplateAreas", "gridTemplate", "gridAutoColumns", "gridAutoRows", "gridAutoFlow", "grid", "gridRowStart", "gridColumnStart", "gridRowEnd", "gridRow", "gridColumn", "gridColumnEnd", "gridColumnGap", "gridRowGap", "gridArea", "gridGap", "textSizeAdjust"]) };
+exports["default"] = { "Webkit": { "transform": true, "transformOrigin": true, "transformOriginX": true, "transformOriginY": true, "backfaceVisibility": true, "perspective": true, "perspectiveOrigin": true, "transformStyle": true, "transformOriginZ": true, "animation": true, "animationDelay": true, "animationDirection": true, "animationFillMode": true, "animationDuration": true, "animationIterationCount": true, "animationName": true, "animationPlayState": true, "animationTimingFunction": true, "appearance": true, "userSelect": true, "fontKerning": true, "textEmphasisPosition": true, "textEmphasis": true, "textEmphasisStyle": true, "textEmphasisColor": true, "boxDecorationBreak": true, "clipPath": true, "maskImage": true, "maskMode": true, "maskRepeat": true, "maskPosition": true, "maskClip": true, "maskOrigin": true, "maskSize": true, "maskComposite": true, "mask": true, "maskBorderSource": true, "maskBorderMode": true, "maskBorderSlice": true, "maskBorderWidth": true, "maskBorderOutset": true, "maskBorderRepeat": true, "maskBorder": true, "maskType": true, "textDecorationStyle": true, "textDecorationSkip": true, "textDecorationLine": true, "textDecorationColor": true, "filter": true, "fontFeatureSettings": true, "breakAfter": true, "breakBefore": true, "breakInside": true, "columnCount": true, "columnFill": true, "columnGap": true, "columnRule": true, "columnRuleColor": true, "columnRuleStyle": true, "columnRuleWidth": true, "columns": true, "columnSpan": true, "columnWidth": true, "flex": true, "flexBasis": true, "flexDirection": true, "flexGrow": true, "flexFlow": true, "flexShrink": true, "flexWrap": true, "alignContent": true, "alignItems": true, "alignSelf": true, "justifyContent": true, "order": true, "transition": true, "transitionDelay": true, "transitionDuration": true, "transitionProperty": true, "transitionTimingFunction": true, "backdropFilter": true, "scrollSnapType": true, "scrollSnapPointsX": true, "scrollSnapPointsY": true, "scrollSnapDestination": true, "scrollSnapCoordinate": true, "shapeImageThreshold": true, "shapeImageMargin": true, "shapeImageOutside": true, "hyphens": true, "flowInto": true, "flowFrom": true, "regionFragment": true, "textSizeAdjust": true, "borderImage": true, "borderImageOutset": true, "borderImageRepeat": true, "borderImageSlice": true, "borderImageSource": true, "borderImageWidth": true, "tabSize": true, "objectFit": true, "objectPosition": true }, "Moz": { "appearance": true, "userSelect": true, "boxSizing": true, "textAlignLast": true, "textDecorationStyle": true, "textDecorationSkip": true, "textDecorationLine": true, "textDecorationColor": true, "tabSize": true, "hyphens": true, "fontFeatureSettings": true, "breakAfter": true, "breakBefore": true, "breakInside": true, "columnCount": true, "columnFill": true, "columnGap": true, "columnRule": true, "columnRuleColor": true, "columnRuleStyle": true, "columnRuleWidth": true, "columns": true, "columnSpan": true, "columnWidth": true }, "ms": { "flex": true, "flexBasis": false, "flexDirection": true, "flexGrow": false, "flexFlow": true, "flexShrink": false, "flexWrap": true, "alignContent": false, "alignItems": false, "alignSelf": false, "justifyContent": false, "order": false, "transform": true, "transformOrigin": true, "transformOriginX": true, "transformOriginY": true, "userSelect": true, "wrapFlow": true, "wrapThrough": true, "wrapMargin": true, "scrollSnapType": true, "scrollSnapPointsX": true, "scrollSnapPointsY": true, "scrollSnapDestination": true, "scrollSnapCoordinate": true, "touchAction": true, "hyphens": true, "flowInto": true, "flowFrom": true, "breakBefore": true, "breakAfter": true, "breakInside": true, "regionFragment": true, "gridTemplateColumns": true, "gridTemplateRows": true, "gridTemplateAreas": true, "gridTemplate": true, "gridAutoColumns": true, "gridAutoRows": true, "gridAutoFlow": true, "grid": true, "gridRowStart": true, "gridColumnStart": true, "gridRowEnd": true, "gridRow": true, "gridColumn": true, "gridColumnEnd": true, "gridColumnGap": true, "gridRowGap": true, "gridArea": true, "gridGap": true, "textSizeAdjust": true } };
 module.exports = exports["default"];
 },{}],11:[function(require,module,exports){
 // leight polyfill for Object.assign
