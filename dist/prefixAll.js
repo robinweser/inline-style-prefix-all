@@ -244,16 +244,13 @@ var _prefixProps = require('../prefixProps');
 
 var _prefixProps2 = _interopRequireDefault(_prefixProps);
 
-var properties = {
-  'transition': true,
-  'transitionProperty': true
-};
+var properties = { transition: true, transitionProperty: true };
 
 function transition(property, value) {
   // also check for already prefixed transitions
   var unprefixedProperty = (0, _utilsUnprefixProperty2['default'])(property);
   if (typeof value === 'string' && properties[unprefixedProperty]) {
-    var _ref;
+    var _ref2;
 
     var _ret = (function () {
       // only split multi values, not cubic beziers
@@ -277,10 +274,17 @@ function transition(property, value) {
       });
 
       var outputValue = multipleValues.join(',');
+
+      if (unprefixedProperty !== property) {
+        return {
+          v: _defineProperty({}, property, outputValue)
+        };
+      }
+
       return {
-        v: (_ref = {}, _defineProperty(_ref, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), outputValue.split(',').filter(function (value) {
+        v: (_ref2 = {}, _defineProperty(_ref2, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), outputValue.split(',').filter(function (value) {
           return value.match(/-moz-|-ms-/) === null;
-        }).join(',')), _defineProperty(_ref, property, outputValue), _ref)
+        }).join(',')), _defineProperty(_ref2, property, outputValue), _ref2)
       };
     })();
 
@@ -362,7 +366,6 @@ function prefixAll(styles) {
     } else {
       Object.keys(_prefixProps2['default']).forEach(function (prefix) {
         var properties = _prefixProps2['default'][prefix];
-
         // add prefixes if needed
         if (properties[property]) {
           prefixedStyles[prefix + (0, _utilsCapitalizeString2['default'])(property)] = value;

@@ -37,7 +37,6 @@ export default function prefixAll(styles) {
     } else {
       Object.keys(prefixProperties).forEach(prefix => {
         const properties = prefixProperties[prefix]
-
         // add prefixes if needed
         if (properties[property]) {
           prefixedStyles[prefix + capitalizeString(property)] = value

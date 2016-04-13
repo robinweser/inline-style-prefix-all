@@ -141,7 +141,6 @@ describe('Resolving special plugins', () => {
       display: '-webkit-box;display:-moz-box;display:-ms-inline-flexbox;display:-webkit-inline-flex;display:inline-flex'
     }
     expect(prefixAll(input)).to.eql(output)
-
   })
 
   it('should prefix special sizing values', () => {
@@ -159,6 +158,14 @@ describe('Resolving special plugins', () => {
     const output = {
       WebkitTransition: '200ms linear -webkit-appearance,200ms linear appearance, 100ms linear width',
       transition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance, 100ms linear width'
+    }
+    expect(prefixAll(input)).to.eql(output)
+  })
+
+  it('should prefix transition values for prefixed properties', () => {
+    const input = { msTransition: '200ms linear appearance' }
+    const output = {
+      msTransition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance'
     }
     expect(prefixAll(input)).to.eql(output)
   })

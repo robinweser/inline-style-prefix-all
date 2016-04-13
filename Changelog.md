@@ -1,6 +1,9 @@
 # Changelog
 
 ## 1.0
+### 1.0.5
+* fixed a bug that added wrong prefixes to already prefixed transitions ( [#6](https://github.com/rofrischmann/inline-style-prefix-all/issues/6) )
+
 ### 1.0.3
 * prevent `alignSelf` and `alignContent` from rendering alternative values
 * removed some unnecessary flexbox properties from `ms` prefixes
