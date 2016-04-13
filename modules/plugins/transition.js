@@ -3,10 +3,7 @@ import capitalizeString from '../utils/capitalizeString'
 import unprefixProperty from '../utils/unprefixProperty'
 import prefixProps from '../prefixProps'
 
-const properties = {
-  'transition': true,
-  'transitionProperty': true
-}
+const properties = { transition: true, transitionProperty: true }
 
 export default function transition(property, value) {
   // also check for already prefixed transitions
@@ -33,6 +30,11 @@ export default function transition(property, value) {
     })
 
     const outputValue = multipleValues.join(',')
+
+    if (unprefixedProperty !== property) {
+      return { [ property]: outputValue }
+    }
+
     return {
       ['Webkit' + capitalizeString(property)]: outputValue.split(',').filter(value => value.match(/-moz-|-ms-/) === null).join(','),
       [property]: outputValue
