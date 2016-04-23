@@ -8,7 +8,7 @@ const values = {
 export default function flex(property, value) {
   if (property === 'display' && values[value]) {
     return {
-      display: [ '-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value ].join(';' + camelToDashCase(property) + ':')
+      display: [ '-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value ].reverse()
     }
   }
 }
