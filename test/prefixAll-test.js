@@ -23,10 +23,10 @@ describe('Prefixing all properties', () => {
     expect(prefixAll(input)).to.eql(output)
   })
 
-  it('should use dash-cased alternative properties', () => {
+  it('should use dash-cased alternative values in array', () => {
     const input = { marginLeft: 'calc(30deg)' }
     const output = {
-      marginLeft: '-webkit-calc(30deg);margin-left:-moz-calc(30deg);margin-left:calc(30deg)'
+      marginLeft: ['calc(30deg)', '-moz-calc(30deg)', '-webkit-calc(30deg)']
     }
     expect(prefixAll(input)).to.eql(output)
   })
@@ -54,7 +54,7 @@ describe('Resolving special plugins', () => {
   it('should prefix calc expressions', () => {
     const input = { width: 'calc(30px)' }
     const output = {
-      width: '-webkit-calc(30px);width:-moz-calc(30px);width:calc(30px)'
+      width: ['calc(30px)', '-moz-calc(30px)', '-webkit-calc(30px)']
     }
     expect(prefixAll(input)).to.eql(output)
   })
@@ -62,7 +62,7 @@ describe('Resolving special plugins', () => {
   it('should prefix special cursor values', () => {
     const input = { cursor: 'zoom-in' }
     const output = {
-      cursor: '-webkit-zoom-in;cursor:-moz-zoom-in;cursor:zoom-in'
+      cursor: ['zoom-in', '-moz-zoom-in', '-webkit-zoom-in']
     }
     expect(prefixAll(input)).to.eql(output)
   })
@@ -122,7 +122,7 @@ describe('Resolving special plugins', () => {
       background: 'linear-gradient(to bottom right, red, yellow)'
     }
     const output = {
-      background: '-webkit-linear-gradient(to bottom right, red, yellow);background:-moz-linear-gradient(to bottom right, red, yellow);background:linear-gradient(to bottom right, red, yellow)'
+      background: ['linear-gradient(to bottom right, red, yellow)', '-moz-linear-gradient(to bottom right, red, yellow)', '-webkit-linear-gradient(to bottom right, red, yellow)']
     }
     expect(prefixAll(input)).to.eql(output)
   })
@@ -130,7 +130,7 @@ describe('Resolving special plugins', () => {
   it('should add all flexbox display types', () => {
     const input = { display: 'flex' }
     const output = {
-      display: '-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex'
+      display: ['flex', '-webkit-flex', '-ms-flexbox', '-moz-box', '-webkit-box']
     }
     expect(prefixAll(input)).to.eql(output)
   })
@@ -138,7 +138,7 @@ describe('Resolving special plugins', () => {
   it('should add all inline flexbox display types', () => {
     const input = { display: 'inline-flex' }
     const output = {
-      display: '-webkit-box;display:-moz-box;display:-ms-inline-flexbox;display:-webkit-inline-flex;display:inline-flex'
+      display: ['inline-flex', '-webkit-inline-flex', '-ms-inline-flexbox', '-moz-box', '-webkit-box']
     }
     expect(prefixAll(input)).to.eql(output)
   })
@@ -146,7 +146,7 @@ describe('Resolving special plugins', () => {
   it('should prefix special sizing values', () => {
     const input = { width: 'min-content' }
     const output = {
-      width: '-webkit-min-content;width:-moz-min-content;width:min-content'
+      width: ['min-content', '-moz-min-content', '-webkit-min-content']
     }
     expect(prefixAll(input)).to.eql(output)
   })

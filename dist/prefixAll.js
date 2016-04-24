@@ -71,7 +71,7 @@ var values = {
 function flex(property, value) {
   if (property === 'display' && values[value]) {
     return {
-      display: ['-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value].join(';' + (0, _utilsCamelToDashCase2['default'])(property) + ':')
+      display: ['-webkit-box', '-moz-box', '-ms-' + value + 'box', '-webkit-' + value, value].reverse()
     };
   }
 }
@@ -463,7 +463,7 @@ exports['default'] = function (property, value) {
   return (function () {
     return _defineProperty({}, property, ['-webkit-', '-moz-', ''].map(function (prefix) {
       return replacer(prefix, value);
-    }).join(';' + (0, _camelToDashCase2['default'])(property) + ':'));
+    }).reverse());
   })();
 };
 
