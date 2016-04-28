@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1
+### 1.1.0
+##### API changes
+* Fallback values get returned as an array instead of a static string ( [#7](https://github.com/rofrischmann/inline-style-prefix-all/pull/7) by [@rtsao](https://github.com/rtsao) )
+
 ## 1.0
 ### 1.0.5
 * fixed a bug that added wrong prefixes to already prefixed transitions ( [#6](https://github.com/rofrischmann/inline-style-prefix-all/issues/6) )
