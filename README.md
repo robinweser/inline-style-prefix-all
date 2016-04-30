@@ -37,6 +37,7 @@ import prefixAll from 'inline-style-prefix-all'
 const styles = {
   transition: '200ms all linear',
   boxSizing: 'border-box',
+  display: 'flex',
   color: 'blue'
 }
 
@@ -52,6 +53,8 @@ const output = {
   // Firefox up to version 28 needs a prefix
   // Others dropped prefixes out of scope
   boxSizing: 'border-box',
+  // Fallback/prefixed values get grouped in arrays
+  display: ['-webkit-box', '-moz-box', '-ms-flexbox', '-webkit-flex', 'flex']
   color: 'blue'
 }
 ```

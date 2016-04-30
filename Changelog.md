@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0
+### 2.0.0
+Major update as API changes happened. <br>
+1.1.0 was released by mistake and should have been a major update itself.<br>
+I apologize for all broken dependencies.
+
+##### API changes
+* Fallback value order was reversed back to 1.0.x behavior, prefixed values first
+
 ## 1.1
 ### 1.1.0
 ##### API changes
