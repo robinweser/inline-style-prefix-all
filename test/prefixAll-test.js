@@ -23,10 +23,10 @@ describe('Prefixing all properties', () => {
     expect(prefixAll(input)).to.eql(output)
   })
 
-  it('should use dash-cased alternative values', () => {
+  it('should use dash-cased alternative values in array', () => {
     const input = { marginLeft: 'calc(30deg)' }
     const output = {
-      marginLeft: '-webkit-calc(30deg),-moz-calc(30deg),calc(30deg)'
+      marginLeft: [ '-webkit-calc(30deg)', '-moz-calc(30deg)', 'calc(30deg)' ]
     }
     expect(prefixAll(input)).to.eql(output)
   })
@@ -54,7 +54,7 @@ describe('Resolving special plugins', () => {
   it('should prefix calc expressions', () => {
     const input = { width: 'calc(30px)' }
     const output = {
-      width: '-webkit-calc(30px),-moz-calc(30px),calc(30px)'
+      width: [ '-webkit-calc(30px)', '-moz-calc(30px)', 'calc(30px)' ]
     }
     expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
@@ -63,7 +63,7 @@ describe('Resolving special plugins', () => {
   it('should prefix special cursor values', () => {
     const input = { cursor: 'zoom-in' }
     const output = {
-      cursor: '-webkit-zoom-in,-moz-zoom-in,zoom-in'
+      cursor: [ '-webkit-zoom-in', '-moz-zoom-in', 'zoom-in' ]
     }
     expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
@@ -128,7 +128,7 @@ describe('Resolving special plugins', () => {
       background: 'linear-gradient(to bottom right, red, yellow)'
     }
     const output = {
-      background: '-webkit-linear-gradient(to bottom right, red, yellow),-moz-linear-gradient(to bottom right, red, yellow),linear-gradient(to bottom right, red, yellow)'
+      background: [ '-webkit-linear-gradient(to bottom right, red, yellow)', '-moz-linear-gradient(to bottom right, red, yellow)', 'linear-gradient(to bottom right, red, yellow)' ]
     }
     expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
@@ -155,7 +155,7 @@ describe('Resolving special plugins', () => {
   it('should prefix special sizing values', () => {
     const input = { width: 'min-content' }
     const output = {
-      width: '-webkit-min-content,-moz-min-content,min-content'
+      width: [ '-webkit-min-content', '-moz-min-content', 'min-content' ]
     }
     expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
