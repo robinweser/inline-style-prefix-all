@@ -1,7 +1,6 @@
 import prefixProperties from './prefixProps'
 import capitalizeString from './utils/capitalizeString'
 import assign from './utils/assign'
-import isArray from 'isarray'
 
 import calc from './plugins/calc'
 import cursor from './plugins/cursor'
@@ -32,7 +31,7 @@ const plugins = [
 export default function prefixAll(styles) {
   return Object.keys(styles).reduce((prefixedStyles, property) => {
     const value = styles[property]
-    if (value instanceof Object && !isArray(value)) {
+    if (value instanceof Object && !Array.isArray(value)) {
       // recurse through nested style objects
       prefixedStyles[property] = prefixAll(value)
     } else {

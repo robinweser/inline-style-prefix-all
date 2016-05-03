@@ -57,8 +57,5 @@
     "mocha": "^2.2.5",
     "rimraf": "^2.4.2",
     "uglifyjs": "^2.4.10"
-  },
-  "dependencies": {
-    "isarray": "^1.0.0"
   }
 }
