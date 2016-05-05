@@ -31,7 +31,7 @@ const plugins = [
 export default function prefixAll(styles) {
   return Object.keys(styles).reduce((prefixedStyles, property) => {
     const value = styles[property]
-    if (value instanceof Object) {
+    if (value instanceof Object && !Array.isArray(value)) {
       // recurse through nested style objects
       prefixedStyles[property] = prefixAll(value)
     } else {

@@ -57,6 +57,7 @@ describe('Resolving special plugins', () => {
       width: [ '-webkit-calc(30px)', '-moz-calc(30px)', 'calc(30px)' ]
     }
     expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(input)).to.eql(output)
   })
 
   it('should prefix special cursor values', () => {
@@ -64,6 +65,7 @@ describe('Resolving special plugins', () => {
     const output = {
       cursor: [ '-webkit-zoom-in', '-moz-zoom-in', 'zoom-in' ]
     }
+    expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
   })
 
@@ -77,6 +79,7 @@ describe('Resolving special plugins', () => {
       flexDirection: 'column-reverse'
     }
     expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(input)).to.eql(output)
   })
 
   it('should resolve alternative values for all flexbox specification', () => {
@@ -87,6 +90,7 @@ describe('Resolving special plugins', () => {
       justifyContent: 'space-around',
       msFlexPack: 'distribute'
     }
+    expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
   })
 
@@ -105,6 +109,7 @@ describe('Resolving special plugins', () => {
       width: '200px'
     }
     expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(input)).to.eql(output)
   })
 
   it('should not resolve alternative values on alignSelf', () => {
@@ -114,6 +119,7 @@ describe('Resolving special plugins', () => {
       WebkitAlignSelf: 'flex-start',
       alignSelf: 'flex-start'
     }
+    expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
   })
 
@@ -125,6 +131,7 @@ describe('Resolving special plugins', () => {
       background: [ '-webkit-linear-gradient(to bottom right, red, yellow)', '-moz-linear-gradient(to bottom right, red, yellow)', 'linear-gradient(to bottom right, red, yellow)' ]
     }
     expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(input)).to.eql(output)
   })
 
   it('should add all flexbox display types', () => {
@@ -132,6 +139,7 @@ describe('Resolving special plugins', () => {
     const output = {
       display: [ '-webkit-box', '-moz-box', '-ms-flexbox', '-webkit-flex', 'flex' ]
     }
+    expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
   })
 
@@ -141,6 +149,7 @@ describe('Resolving special plugins', () => {
       display: [ '-webkit-box', '-moz-box', '-ms-inline-flexbox', '-webkit-inline-flex', 'inline-flex' ]
     }
     expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(input)).to.eql(output)
   })
 
   it('should prefix special sizing values', () => {
@@ -148,6 +157,7 @@ describe('Resolving special plugins', () => {
     const output = {
       width: [ '-webkit-min-content', '-moz-min-content', 'min-content' ]
     }
+    expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
   })
 
@@ -160,6 +170,7 @@ describe('Resolving special plugins', () => {
       transition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance, 100ms linear width'
     }
     expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(input)).to.eql(output)
   })
 
   it('should prefix transition values for prefixed properties', () => {
@@ -167,6 +178,7 @@ describe('Resolving special plugins', () => {
     const output = {
       msTransition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance'
     }
+    expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
   })
 })
