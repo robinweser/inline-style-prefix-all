@@ -1,13 +1,14 @@
 # Changelog
 
 ## 2.0
+### 2.0.1
+* no more prefixing of already prefixed values ( [#9](https://github.com/rofrischmann/inline-style-prefix-all/pull/9) by [@ajoslin](https://github.com/ajoslin) )
+* Fallback value order was reversed back to 1.0.x behavior, prefixed values first ( [#10](https://github.com/rofrischmann/inline-style-prefix-all/issues/10) )
+
 ### 2.0.0
 Major update as API changes happened. <br>
 1.1.0 was released by mistake and should have been a major update itself.<br>
 I apologize for all broken dependencies.
-
-##### API changes
-* Fallback value order was reversed back to 1.0.x behavior, prefixed values first
 
 ## 1.1
 ### 1.1.0
