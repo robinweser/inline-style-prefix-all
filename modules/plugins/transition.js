@@ -1,23 +1,28 @@
 import camelToDashCase from '../utils/camelToDashCase'
 import capitalizeString from '../utils/capitalizeString'
-import unprefixProperty from '../utils/unprefixProperty'
 import isPrefixedValue from '../utils/isPrefixedValue'
 import prefixProps from '../prefixProps'
 
-const properties = { transition: true, transitionProperty: true }
+const properties = {
+  transition: true,
+  transitionProperty: true,
+  WebkitTransition: true,
+  WebkitTransitionProperty: true
+}
 
 export default function transition(property, value) {
   // also check for already prefixed transitions
-  const unprefixedProperty = unprefixProperty(property)
-  if (typeof value === 'string' && properties[unprefixedProperty]) {
+  if (typeof value === 'string' && properties[property]) {
     const outputValue = prefixValue(value)
+    const webkitOutput = outputValue.split(',').filter(value => value.match(/-moz-|-ms-/) === null).join(',')
 
-    if (unprefixedProperty !== property) {
-      return { [property]: outputValue }
+    // if the property is already prefixed
+    if (property.indexOf('Webkit') > -1) {
+      return { [ property]: webkitOutput }
     }
 
     return {
-      ['Webkit' + capitalizeString(property)]: outputValue.split(',').filter(value => value.match(/-moz-|-ms-/) === null).join(','),
+      ['Webkit' + capitalizeString(property)]: webkitOutput,
       [property]: outputValue
     }
   }

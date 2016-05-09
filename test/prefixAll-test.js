@@ -174,9 +174,22 @@ describe('Resolving special plugins', () => {
   })
 
   it('should prefix transition values for prefixed properties', () => {
-    const input = { msTransition: '200ms linear appearance' }
+    const input = { WebkitTransition: '200ms linear appearance' }
     const output = {
-      msTransition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance'
+      WebkitTransition: '200ms linear -webkit-appearance,200ms linear appearance'
+    }
+    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(input)).to.eql(output)
+  })
+
+  it('should not prefix msTransition or mozTransition', () => {
+    const input = {
+      msTransition: '200ms linear appearance',
+      mozTransition: '300ms linear width'
+    }
+    const output = {
+      msTransition: '200ms linear appearance',
+      mozTransition: '300ms linear width'
     }
     expect(prefixAll(input)).to.eql(output)
     expect(prefixAll(input)).to.eql(output)
