@@ -1,6 +1,9 @@
 # Changelog
 
 ## 2.0
+### 2.0.2
+* does not prefix `msTransition` or `mozTransition` as they do not exist
+
 ### 2.0.1
 * no more prefixing of already prefixed values ( [#9](https://github.com/rofrischmann/inline-style-prefix-all/pull/9) by [@ajoslin](https://github.com/ajoslin) )
 * Fallback value order was reversed back to 1.0.x behavior, prefixed values first ( [#10](https://github.com/rofrischmann/inline-style-prefix-all/issues/10) )

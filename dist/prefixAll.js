@@ -245,10 +245,6 @@ var _utilsCapitalizeString = require('../utils/capitalizeString');
 
 var _utilsCapitalizeString2 = _interopRequireDefault(_utilsCapitalizeString);
 
-var _utilsUnprefixProperty = require('../utils/unprefixProperty');
-
-var _utilsUnprefixProperty2 = _interopRequireDefault(_utilsUnprefixProperty);
-
 var _utilsIsPrefixedValue = require('../utils/isPrefixedValue');
 
 var _utilsIsPrefixedValue2 = _interopRequireDefault(_utilsIsPrefixedValue);
@@ -257,23 +253,29 @@ var _prefixProps = require('../prefixProps');
 
 var _prefixProps2 = _interopRequireDefault(_prefixProps);
 
-var properties = { transition: true, transitionProperty: true };
+var properties = {
+  transition: true,
+  transitionProperty: true,
+  WebkitTransition: true,
+  WebkitTransitionProperty: true
+};
 
 function transition(property, value) {
   // also check for already prefixed transitions
-  var unprefixedProperty = (0, _utilsUnprefixProperty2['default'])(property);
-  if (typeof value === 'string' && properties[unprefixedProperty]) {
+  if (typeof value === 'string' && properties[property]) {
     var _ref2;
 
     var outputValue = prefixValue(value);
+    var webkitOutput = outputValue.split(',').filter(function (value) {
+      return value.match(/-moz-|-ms-/) === null;
+    }).join(',');
 
-    if (unprefixedProperty !== property) {
-      return _defineProperty({}, property, outputValue);
+    // if the property is already prefixed
+    if (property.indexOf('Webkit') > -1) {
+      return _defineProperty({}, property, webkitOutput);
     }
 
-    return _ref2 = {}, _defineProperty(_ref2, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), outputValue.split(',').filter(function (value) {
-      return value.match(/-moz-|-ms-/) === null;
-    }).join(',')), _defineProperty(_ref2, property, outputValue), _ref2;
+    return _ref2 = {}, _defineProperty(_ref2, 'Webkit' + (0, _utilsCapitalizeString2['default'])(property), webkitOutput), _defineProperty(_ref2, property, outputValue), _ref2;
   }
 }
 
@@ -306,7 +308,7 @@ function prefixValue(value) {
   return multipleValues.join(',');
 }
 module.exports = exports['default'];
-},{"../prefixProps":10,"../utils/camelToDashCase":12,"../utils/capitalizeString":13,"../utils/isPrefixedValue":14,"../utils/unprefixProperty":16}],9:[function(require,module,exports){
+},{"../prefixProps":10,"../utils/camelToDashCase":12,"../utils/capitalizeString":13,"../utils/isPrefixedValue":14}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -495,18 +497,5 @@ exports['default'] = function (property, value) {
 };
 
 module.exports = exports['default'];
-},{"./camelToDashCase":12}],16:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-exports['default'] = function (property) {
-  var unprefixed = property.replace(/^(ms|Webkit|Moz|O)/, '');
-  return unprefixed.charAt(0).toLowerCase() + unprefixed.slice(1);
-};
-
-module.exports = exports['default'];
-},{}]},{},[9])(9)
+},{"./camelToDashCase":12}]},{},[9])(9)
 });
