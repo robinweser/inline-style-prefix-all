@@ -424,20 +424,21 @@ exports["default"] = function (base) {
 
 module.exports = exports["default"];
 },{}],12:[function(require,module,exports){
-/**
- * Converts a camel-case string to a dash-case string
- * @param {string} str - str that gets converted to dash-case
- */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+var uppercasePattern = /[A-Z]/g;
+var msPattern = /^ms-/;
+
+/**
+ * Converts a camel-case string to a dash-case string
+ * @param {string} str - str that gets converted to dash-case
+ */
 
 exports['default'] = function (str) {
-  return str.replace(/([a-z]|^)([A-Z])/g, function (match, p1, p2) {
-    return p1 + '-' + p2.toLowerCase();
-  }).replace('ms-', '-ms-');
+  return str.replace(uppercasePattern, '-$&').toLowerCase().replace(msPattern, '-ms-');
 };
 
 module.exports = exports['default'];
