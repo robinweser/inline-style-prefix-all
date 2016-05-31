@@ -378,6 +378,34 @@ function prefixAll(styles) {
     if (value instanceof Object && !Array.isArray(value)) {
       // recurse through nested style objects
       prefixedStyles[property] = prefixAll(value);
+    } else if (Array.isArray(value)) {
+      // prefix fallback arrays
+      var prefixedValues = value.map(function (val) {
+        var result = {};
+        plugins.forEach(function (plugin) {
+          return (0, _utilsAssign2['default'])(result, plugin(property, val));
+        });
+        if (!Object.keys(result).length) {
+          result[property] = val;
+        }
+        return result;
+      });
+      var mergedValues = prefixedValues.reduce(function (acc, content) {
+        Object.keys(content).forEach(function (key) {
+          var val = content[key];
+          if (!acc[key]) {
+            acc[key] = [];
+          }
+          var valArray = Array.isArray(val) ? val : [val];
+          valArray.forEach(function (entry) {
+            if (acc[key].indexOf(entry) === -1) {
+              acc[key].push(entry);
+            }
+          });
+        });
+        return acc;
+      }, {});
+      (0, _utilsAssign2['default'])(prefixedStyles, mergedValues);
     } else {
       Object.keys(_prefixProps2['default']).forEach(function (prefix) {
         var properties = _prefixProps2['default'][prefix];
@@ -386,7 +414,6 @@ function prefixAll(styles) {
           prefixedStyles[prefix + (0, _utilsCapitalizeString2['default'])(property)] = value;
         }
       });
-
       // resolve every special plugins
       plugins.forEach(function (plugin) {
         return (0, _utilsAssign2['default'])(prefixedStyles, plugin(property, value));
