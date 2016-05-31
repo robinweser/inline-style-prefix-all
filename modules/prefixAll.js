@@ -34,6 +34,32 @@ export default function prefixAll(styles) {
     if (value instanceof Object && !Array.isArray(value)) {
       // recurse through nested style objects
       prefixedStyles[property] = prefixAll(value)
+    } else if (Array.isArray(value)) {
+      // prefix fallback arrays
+      const prefixedValues = value.map(function(val) {
+        let result = {}
+        plugins.forEach(plugin => assign(result, plugin(property, val)))
+        if (!Object.keys(result).length) {
+          result[property] = val
+        }
+        return result
+      })
+      var mergedValues = prefixedValues.reduce((acc, content) => {
+        Object.keys(content).forEach((key) => {
+          const val = content[key]
+          if (!acc[key]) {
+            acc[key] = []
+          }
+          const valArray = Array.isArray(val) ? val : [val]
+          valArray.forEach((entry) => {
+            if (acc[key].indexOf(entry) === -1) {
+              acc[key].push(entry)
+            }
+          })
+        })
+        return acc
+      }, {})
+      assign(prefixedStyles, mergedValues)
     } else {
       Object.keys(prefixProperties).forEach(prefix => {
         const properties = prefixProperties[prefix]
@@ -42,7 +68,6 @@ export default function prefixAll(styles) {
           prefixedStyles[prefix + capitalizeString(property)] = value
         }
       })
-
       // resolve every special plugins
       plugins.forEach(plugin => assign(prefixedStyles, plugin(property, value)))
     }
