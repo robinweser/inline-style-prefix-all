@@ -1,4 +1,4 @@
-import camelToDashCase from '../utils/camelToDashCase'
+import camelToDashCase from 'hyphenate-style-name'
 
 const values = { flex: true, 'inline-flex': true }
 

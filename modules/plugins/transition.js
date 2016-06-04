@@ -1,4 +1,4 @@
-import camelToDashCase from '../utils/camelToDashCase'
+import camelToDashCase from 'hyphenate-style-name'
 import capitalizeString from '../utils/capitalizeString'
 import isPrefixedValue from '../utils/isPrefixedValue'
 import prefixProps from '../prefixProps'

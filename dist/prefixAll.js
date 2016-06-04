@@ -27,7 +27,7 @@ function calc(property, value) {
 }
 
 module.exports = exports['default'];
-},{"../utils/isPrefixedValue":14,"../utils/joinPrefixedRules":15}],2:[function(require,module,exports){
+},{"../utils/isPrefixedValue":13,"../utils/joinPrefixedRules":14}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -55,7 +55,7 @@ function cursor(property, value) {
 }
 
 module.exports = exports['default'];
-},{"../utils/joinPrefixedRules":15}],3:[function(require,module,exports){
+},{"../utils/joinPrefixedRules":14}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -65,9 +65,9 @@ exports['default'] = flex;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+var _hyphenateStyleName = require('hyphenate-style-name');
 
-var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+var _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName);
 
 var values = { flex: true, 'inline-flex': true };
 
@@ -80,7 +80,7 @@ function flex(property, value) {
 }
 
 module.exports = exports['default'];
-},{"../utils/camelToDashCase":12}],4:[function(require,module,exports){
+},{"hyphenate-style-name":15}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -126,9 +126,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+var _hyphenateStyleName = require('hyphenate-style-name');
 
-var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+var _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName);
 
 var alternativeValues = {
   'space-around': 'justify',
@@ -158,7 +158,7 @@ function flexboxOld(property, value) {
 }
 
 module.exports = exports['default'];
-},{"../utils/camelToDashCase":12}],6:[function(require,module,exports){
+},{"hyphenate-style-name":15}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -187,7 +187,7 @@ function gradient(property, value) {
 }
 
 module.exports = exports['default'];
-},{"../utils/isPrefixedValue":14,"../utils/joinPrefixedRules":15}],7:[function(require,module,exports){
+},{"../utils/isPrefixedValue":13,"../utils/joinPrefixedRules":14}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -225,7 +225,7 @@ function sizing(property, value) {
 }
 
 module.exports = exports['default'];
-},{"../utils/joinPrefixedRules":15}],8:[function(require,module,exports){
+},{"../utils/joinPrefixedRules":14}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -237,9 +237,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var _utilsCamelToDashCase = require('../utils/camelToDashCase');
+var _hyphenateStyleName = require('hyphenate-style-name');
 
-var _utilsCamelToDashCase2 = _interopRequireDefault(_utilsCamelToDashCase);
+var _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName);
 
 var _utilsCapitalizeString = require('../utils/capitalizeString');
 
@@ -294,7 +294,7 @@ function prefixValue(value) {
       var dashCasePrefix = '-' + prefix.toLowerCase() + '-';
 
       Object.keys(_prefixProps2['default'][prefix]).forEach(function (prop) {
-        var dashCaseProperty = (0, _utilsCamelToDashCase2['default'])(prop);
+        var dashCaseProperty = (0, _hyphenateStyleName2['default'])(prop);
 
         if (val.indexOf(dashCaseProperty) > -1) {
           // join all prefixes and create a new value
@@ -308,7 +308,7 @@ function prefixValue(value) {
   return multipleValues.join(',');
 }
 module.exports = exports['default'];
-},{"../prefixProps":10,"../utils/camelToDashCase":12,"../utils/capitalizeString":13,"../utils/isPrefixedValue":14}],9:[function(require,module,exports){
+},{"../prefixProps":10,"../utils/capitalizeString":12,"../utils/isPrefixedValue":13,"hyphenate-style-name":15}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -398,7 +398,7 @@ function prefixAll(styles) {
 }
 
 module.exports = exports['default'];
-},{"./plugins/calc":1,"./plugins/cursor":2,"./plugins/flex":3,"./plugins/flexboxIE":4,"./plugins/flexboxOld":5,"./plugins/gradient":6,"./plugins/sizing":7,"./plugins/transition":8,"./prefixProps":10,"./utils/assign":11,"./utils/capitalizeString":13}],10:[function(require,module,exports){
+},{"./plugins/calc":1,"./plugins/cursor":2,"./plugins/flex":3,"./plugins/flexboxIE":4,"./plugins/flexboxOld":5,"./plugins/gradient":6,"./plugins/sizing":7,"./plugins/transition":8,"./prefixProps":10,"./utils/assign":11,"./utils/capitalizeString":12}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -424,24 +424,6 @@ exports["default"] = function (base) {
 
 module.exports = exports["default"];
 },{}],12:[function(require,module,exports){
-/**
- * Converts a camel-case string to a dash-case string
- * @param {string} str - str that gets converted to dash-case
- */
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-exports['default'] = function (str) {
-  return str.replace(/([a-z]|^)([A-Z])/g, function (match, p1, p2) {
-    return p1 + '-' + p2.toLowerCase();
-  }).replace('ms-', '-ms-');
-};
-
-module.exports = exports['default'];
-},{}],13:[function(require,module,exports){
 // helper to capitalize strings
 "use strict";
 
@@ -454,7 +436,7 @@ exports["default"] = function (str) {
 };
 
 module.exports = exports["default"];
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -468,7 +450,7 @@ exports['default'] = function (value) {
 };
 
 module.exports = exports['default'];
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -479,9 +461,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var _camelToDashCase = require('./camelToDashCase');
+var _hyphenateStyleName = require('hyphenate-style-name');
 
-var _camelToDashCase2 = _interopRequireDefault(_camelToDashCase);
+var _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName);
 
 // returns a style object with a single concated prefixed value string
 
@@ -497,5 +479,20 @@ exports['default'] = function (property, value) {
 };
 
 module.exports = exports['default'];
-},{"./camelToDashCase":12}]},{},[9])(9)
+},{"hyphenate-style-name":15}],15:[function(require,module,exports){
+'use strict';
+
+var uppercasePattern = /[A-Z]/g;
+var msPattern = /^ms-/;
+
+function hyphenateStyleName(string) {
+    return string
+        .replace(uppercasePattern, '-$&')
+        .toLowerCase()
+        .replace(msPattern, '-ms-');
+}
+
+module.exports = hyphenateStyleName;
+
+},{}]},{},[9])(9)
 });
