@@ -422,14 +422,10 @@ function mergeValues(existing, toMerge) {
   var merged = existing;
   var valuesToMerge = Array.isArray(toMerge) ? toMerge : [toMerge];
   valuesToMerge.forEach(function (value) {
-    if (Array.isArray(merged)) {
-      if (merged.indexOf(value) === -1) {
-        merged.push(value);
-      }
-    } else {
-      if (merged !== value) {
-        merged = [merged, value];
-      }
+    if (Array.isArray(merged) && merged.indexOf(value) === -1) {
+      merged.push(value);
+    } else if (merged !== value) {
+      merged = [merged, value];
     }
   });
   return merged;
