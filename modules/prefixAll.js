@@ -36,30 +36,7 @@ export default function prefixAll(styles) {
       prefixedStyles[property] = prefixAll(value)
     } else if (Array.isArray(value)) {
       // prefix fallback arrays
-      const prefixedValues = value.map(function(val) {
-        let result = {}
-        plugins.forEach(plugin => assign(result, plugin(property, val)))
-        if (!Object.keys(result).length) {
-          result[property] = val
-        }
-        return result
-      })
-      var mergedValues = prefixedValues.reduce((acc, content) => {
-        Object.keys(content).forEach((key) => {
-          const val = content[key]
-          if (!acc[key]) {
-            acc[key] = []
-          }
-          const valArray = Array.isArray(val) ? val : [val]
-          valArray.forEach((entry) => {
-            if (acc[key].indexOf(entry) === -1) {
-              acc[key].push(entry)
-            }
-          })
-        })
-        return acc
-      }, {})
-      assign(prefixedStyles, mergedValues)
+      assign(prefixedStyles, prefixArray(property, value));
     } else {
       Object.keys(prefixProperties).forEach(prefix => {
         const properties = prefixProperties[prefix]
@@ -74,4 +51,40 @@ export default function prefixAll(styles) {
 
     return prefixedStyles
   }, styles)
+}
+
+function prefixArray(property, valueArray) {
+  let result = {};
+  valueArray.forEach(value => {
+    plugins.forEach(plugin => {
+      let prefixed = plugin(property, value);
+      if (prefixed) {
+        Object.keys(prefixed).forEach(prop => {
+          const entry = prefixed[prop];
+          result[prop] = result[prop] ? mergeValues(result[prop], entry) : entry;
+        });
+      }
+    });
+    if (!result[property]) {
+      result[property] = value;
+    }
+  });
+  return result;
+}
+
+function mergeValues(existing, toMerge) {
+  let merged = existing;
+  let valuesToMerge = Array.isArray(toMerge) ? toMerge : [toMerge];
+  valuesToMerge.forEach(value => {
+    if (Array.isArray(merged)) {
+      if (merged.indexOf(value) === -1) {
+        merged.push(value);
+      }
+    } else {
+      if (merged !== value) {
+        merged = [merged, value];
+      }
+    }
+  });
+  return merged;
 }
