@@ -34,6 +34,9 @@ export default function prefixAll(styles) {
     if (value instanceof Object && !Array.isArray(value)) {
       // recurse through nested style objects
       prefixedStyles[property] = prefixAll(value)
+    } else if (Array.isArray(value)) {
+      // prefix fallback arrays
+      assign(prefixedStyles, prefixArray(property, value))
     } else {
       Object.keys(prefixProperties).forEach(prefix => {
         const properties = prefixProperties[prefix]
@@ -42,11 +45,42 @@ export default function prefixAll(styles) {
           prefixedStyles[prefix + capitalizeString(property)] = value
         }
       })
-
       // resolve every special plugins
       plugins.forEach(plugin => assign(prefixedStyles, plugin(property, value)))
     }
 
     return prefixedStyles
   }, styles)
+}
+
+function prefixArray(property, valueArray) {
+  let result = {}
+  valueArray.forEach(value => {
+    plugins.forEach(plugin => {
+      let prefixed = plugin(property, value)
+      if (prefixed) {
+        Object.keys(prefixed).forEach(prop => {
+          const entry = prefixed[prop]
+          result[prop] = result[prop] ? mergeValues(result[prop], entry) : entry
+        })
+      }
+    })
+    if (!result[property]) {
+      result[property] = value
+    }
+  })
+  return result
+}
+
+function mergeValues(existing, toMerge) {
+  let merged = existing
+  let valuesToMerge = Array.isArray(toMerge) ? toMerge : [toMerge]
+  valuesToMerge.forEach(value => {
+    if (Array.isArray(merged) && merged.indexOf(value) === -1) {
+      merged.push(value)
+    } else if (merged !== value) {
+      merged = [merged, value]
+    }
+  })
+  return merged
 }

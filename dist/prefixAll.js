@@ -378,6 +378,9 @@ function prefixAll(styles) {
     if (value instanceof Object && !Array.isArray(value)) {
       // recurse through nested style objects
       prefixedStyles[property] = prefixAll(value);
+    } else if (Array.isArray(value)) {
+      // prefix fallback arrays
+      (0, _utilsAssign2['default'])(prefixedStyles, prefixArray(property, value));
     } else {
       Object.keys(_prefixProps2['default']).forEach(function (prefix) {
         var properties = _prefixProps2['default'][prefix];
@@ -386,7 +389,6 @@ function prefixAll(styles) {
           prefixedStyles[prefix + (0, _utilsCapitalizeString2['default'])(property)] = value;
         }
       });
-
       // resolve every special plugins
       plugins.forEach(function (plugin) {
         return (0, _utilsAssign2['default'])(prefixedStyles, plugin(property, value));
@@ -397,6 +399,37 @@ function prefixAll(styles) {
   }, styles);
 }
 
+function prefixArray(property, valueArray) {
+  var result = {};
+  valueArray.forEach(function (value) {
+    plugins.forEach(function (plugin) {
+      var prefixed = plugin(property, value);
+      if (prefixed) {
+        Object.keys(prefixed).forEach(function (prop) {
+          var entry = prefixed[prop];
+          result[prop] = result[prop] ? mergeValues(result[prop], entry) : entry;
+        });
+      }
+    });
+    if (!result[property]) {
+      result[property] = value;
+    }
+  });
+  return result;
+}
+
+function mergeValues(existing, toMerge) {
+  var merged = existing;
+  var valuesToMerge = Array.isArray(toMerge) ? toMerge : [toMerge];
+  valuesToMerge.forEach(function (value) {
+    if (Array.isArray(merged) && merged.indexOf(value) === -1) {
+      merged.push(value);
+    } else if (merged !== value) {
+      merged = [merged, value];
+    }
+  });
+  return merged;
+}
 module.exports = exports['default'];
 },{"./plugins/calc":1,"./plugins/cursor":2,"./plugins/flex":3,"./plugins/flexboxIE":4,"./plugins/flexboxOld":5,"./plugins/gradient":6,"./plugins/sizing":7,"./plugins/transition":8,"./prefixProps":10,"./utils/assign":11,"./utils/capitalizeString":12}],10:[function(require,module,exports){
 "use strict";
