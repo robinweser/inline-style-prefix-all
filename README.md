@@ -1,3 +1,6 @@
+> **Deprecated: Please do not use this package anymore**. There will be no more updates to this package. It has been merged into [inline-style-prefixer](https://github.com/rofrischmann/inline-style-prefixer) directly to improve issue tracking and maintenance. You can still use the small prefix-all subset via `inline-style-prefixer/static`.
+
+
 [![Build Status](https://travis-ci.org/rofrischmann/inline-style-prefix-all.svg)](https://travis-ci.org/rofrischmann/inline-style-prefix-all)
 [![Test Coverage](https://codeclimate.com/github/rofrischmann/inline-style-prefix-all/badges/coverage.svg)](https://codeclimate.com/github/rofrischmann/inline-style-prefix-all/coverage)
 [![Code Climate](https://codeclimate.com/github/rofrischmann/inline-style-prefix-all/badges/gpa.svg)](https://codeclimate.com/github/rofrischmann/inline-style-prefix-all)
